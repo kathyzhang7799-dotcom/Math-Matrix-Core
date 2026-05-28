@@ -1,287 +1,305 @@
+import streamlit as st
 from fractions import Fraction
 import time
 import random
-import streamlit as st
 
-# --- 1. 网页全局配置 (进入母体控制台) ---
-st.set_page_config(
-    page_title="The Matrix - Harry's Core Terminal",
-    page_icon="🟢",
-    layout="wide"
-)
-
-# 注入纯正《黑客帝国》暗黑绿幕特效
+# ==========================================
+# 🌌 黑客帝國暗黑螢光綠主題樣式注入
+# ==========================================
 st.markdown("""
     <style>
-    /* 强制背景为纯黑，文字为数字雨荧光绿 */
-    .stApp { background-color: #000000 !important; }
-    .main { background-color: #000000 !important; color: #00FF00 !important; font-family: 'Courier New', monospace; }
-    
-    /* 标题与副标题黑客化 */
-    h1, h2, h3, h4, h5, h6 { color: #00FF00 !important; font-family: 'Courier New', monospace; text-shadow: 0 0 10px #00FF00; }
-    p, label, span, div { color: #00FF00 !important; font-family: 'Courier New', monospace; }
-    
-    /* 输入框样式重写：黑底绿字绿边框 */
-    .stTextInput>div>div>input, .stSelectbox>div>div>div { background-color: #050505 !important; color: #00FF00 !important; border: 1px solid #00FF00 !important; font-family: 'Courier New', monospace; }
-    
-    /* 按钮样式：黑客帝国选择矩阵 */
-    .stButton>button { width: 100%; background-color: #000000; color: #00FF00; border: 1px solid #00FF00; font-family: 'Courier New', monospace; box-shadow: 0 0 5px #00FF00; }
-    .stButton>button:hover { background-color: #00FF00 !important; color: #000000 !important; font-weight: bold; box-shadow: 0 0 15px #00FF00; }
-    
-    /* 侧边栏修改 */
-    [data-testid="stSidebar"] { background-color: #050505 !important; border-right: 1px solid #00FF00; }
-    
-    /* 代码块与警告框 */
-    code { color: #00FF00 !important; background-color: #111111 !important; border: 1px solid #00FF00; }
-    .stAlert { background-color: #0A140A !important; border: 1px solid #00FF00 !important; color: #00FF00 !important; }
+    .reportview-container { background: #000000; }
+    .main { background-color: #000000; color: #00FF00; font-family: 'Courier New', monospace; }
+    h1, h2, h3 { color: #00FF00 !important; text-shadow: 0 0 10px #00FF00; }
+    div.stButton > button:first-child {
+        background-color: #000000; color: #00FF00; border: 2px solid #00FF00;
+        box-shadow: 0 0 10px #00FF00; font-family: 'Courier New', monospace; font-weight: bold;
+    }
+    div.stButton > button:first-child:hover { background-color: #00FF00; color: #000000; }
+    .stTextInput>div>div>input {
+        background-color: #111111; color: #00FF00; border: 1px solid #00FF00;
+        font-family: 'Courier New', monospace;
+    }
+    div[data-testid="stMarkdownContainer"] { color: #00FF00; }
     </style>
-    """, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
-# --- 2. 模拟母体数据流加载 (Digital Rain Loading) ---
-if 'matrix_loaded' not in st.session_state:
-    st.title("📟 CONNECTING TO THE MATRIX...")
-    progress_bar = st.progress(0)
-    status_text = st.empty()
-    
-    # 模拟黑客解密进度
-    progresses = [0, 9, 21, 45, 66, 73, 88, 95, 100]
-    for p in progresses:
-        progress_bar.progress(p)
-        status_text.text(f"📥 Downloading Node Data... [Saskatchewan System] {p}%")
-        time.sleep(random.uniform(0.06, 0.18))
-    
-    st.session_state['matrix_loaded'] = True
-    st.success("🔓 OVERRIDE SUCCESSFUL. SOURCE CODE INJECTED.")
-    time.sleep(0.6)
-    st.rerun()
+st.title("⚡ THE MATRIX: LOGIC SOURCE CORE V7")
+st.write("欢迎来到整合數學計算核心與矩陣加密系統。本核心配備完善的防呆與錯誤處理機制。")
 
-# --- 3. 主界面核心（黑客帝国风格标题） ---
-st.title("🟢 THE MATRIX: LOGIC SOURCE CORE V7")
-st.caption("▲ SYSTEM USER: HARRY | NODE: MOOSE JAW, SK | STATUS: STANDBY")
-st.write("====================================================================================================")
+# ==========================================
+# 📑 側邊欄：功能主選單
+# ==========================================
+st.sidebar.title("🎛️ 控制面板")
+menu_choice = st.sidebar.selectbox(
+    "請選擇核心功能：",
+    [
+        "主頁 / 系統加載",
+        "1. 加法模式 (Addition)",
+        "2. 減法模式 (Subtraction)",
+        "3. 乘法模式 (Multiplication)",
+        "4. 除法模式 (Division)",
+        "5. 高級公式 (Advanced Formulas)",
+        "6. 數學參考表格 (Reference Lists)",
+        "7. 周長公式 (Perimeter Formulas)",
+        "8. 十六進制 ASCII 矩陣加密",
+        "9. 十六進制 ASCII 矩陣解密"
+    ]
+)
 
-# --- 4. 侧边栏：选择你的药丸 (功能菜单) ---
-with st.sidebar:
-    st.subheader("💊 SELECT YOUR PILL")
-    menu_choice = st.radio(
-        "选择要解码的母体协议:",
-        [
-            "⚡ [ALGORITHM] 基础四则运算",
-            "🧬 [EQUATION] 高级代数公式",
-            "📐 [GEOMETRY] 几何周长公式",
-            "📊 [DATABASE] 数学参考表",
-            "🔒 [CRYPT] 十六进制凯撒加密",
-            "🔓 [DECRYPT] 十六进制凯撒解密"
-        ]
-    )
-    st.write("====================")
-    st.markdown("**[SYSTEM NOTICE]**")
-    st.caption("You take the blue pill, the story ends. You take the red pill, you stay in Wonderland.")
+# ==========================================
+# 0. 主頁系統加載動畫
+# ==========================================
+if menu_choice == "主頁 / 系統加載":
+    st.subheader("📟 SYSTEM STATUS: READY")
+    if st.button("🧬 執行核心安全檢測"):
+        progress_bar = st.progress(0)
+        status_text = st.empty()
+        progresses = [0, 13, 31, 36, 43, 44, 58, 85, 97, 100]
+        for p in progresses:
+            status_text.text(f"Loading system core... {p}%")
+            progress_bar.progress(p / 100)
+            time.sleep(random.uniform(0.05, 0.2))
+        st.success("🟢 系統加載成功！歡迎使用 Integrated Math Calculator Core。")
 
-# 辅助函数：保持高精度的分数输出
-def to_fraction_str(val):
-    if val.is_integer():
-        return str(int(val))
-    frac = Fraction(val).limit_denominator(1000)
-    if abs(float(frac) - val) > 1e-9:
-        return f"{val:.4f}"
-    return str(frac)
+# ==========================================
+# 1. 加法模式
+# ==========================================
+elif menu_choice == "1. 加法模式 (Addition)":
+    st.subheader("➕ [Addition Mode]")
+    raw_one = st.text_input("輸入第一個數字或分數：", key="plus1")
+    raw_two = st.text_input("輸入第二個數字或分數：", key="plus2")
+    if st.button("計算和 (RUN ADDITION)"):
+        try:
+            one = Fraction(raw_one)
+            two = Fraction(raw_two)
+            st.code(f"Result: {one} + {two} = {one + two}")
+        except ValueError:
+            st.error("❌ 錯誤：請輸入有效的整數、小數或分數（例如 3/4）！")
 
+# ==========================================
+# 2. 減法模式
+# ==========================================
+elif menu_choice == "2. 減法模式 (Subtraction)":
+    st.subheader("➖ [Subtraction Mode]")
+    raw_one = st.text_input("輸入被減數：", key="minus1")
+    raw_two = st.text_input("輸入減數：", key="minus2")
+    if st.button("計算差 (RUN SUBTRACTION)"):
+        try:
+            one = Fraction(raw_one)
+            two = Fraction(raw_two)
+            st.code(f"Result: {one} - {two} = {one - two}")
+        except ValueError:
+            st.error("❌ 錯誤：請輸入有效的數字或分數！")
 
-# ==================== 模块 1：基础四则运算 ====================
-if "基础四则运算" in menu_choice:
-    st.subheader("🧮 [NODE] FRACTION CALCULATION CORE")
-    op = st.selectbox("选择运算协议 (Protocol):", ["加法 (+)", "减法 (-)", "乘法 (×)", "除法 (÷)"])
-    
-    col1, col2 = st.columns(2)
-    with col1:
-        raw_one = st.text_input("Input Matrix Alpha (e.g., 3, 0.5, 1/3):", key="op1")
-    with col2:
-        raw_two = st.text_input("Input Matrix Beta:", key="op2")
-        
-    if st.button("RUN ALGORITHM"):
-        if raw_one and raw_two:
+# ==========================================
+# 3. 乘法模式
+# ==========================================
+elif menu_choice == "3. 乘法模式 (Multiplication)":
+    st.subheader("✖️ [Multiplication Mode]")
+    raw_one = st.text_input("輸入第一個因數：", key="mul1")
+    raw_two = st.text_input("輸入第二個因數：", key="mul2")
+    if st.button("計算積 (RUN MULTIPLICATION)"):
+        try:
+            one = Fraction(raw_one)
+            two = Fraction(raw_two)
+            st.code(f"Result: {one} × {two} = {one * two}")
+        except ValueError:
+            st.error("❌ 錯誤：請輸入有效的數字或分數！")
+
+# ==========================================
+# 4. 除法模式
+# ==========================================
+elif menu_choice == "4. 除法模式 (Division)":
+    st.subheader("➗ [Division Mode]")
+    raw_one = st.text_input("輸入被除數：", key="div1")
+    raw_two = st.text_input("輸入除數：", key="div2")
+    if st.button("計算商 (RUN DIVISION)"):
+        if raw_two == "0":
+            st.warning("⚠️ 錯誤：除數不能為零！")
+        else:
             try:
                 one = Fraction(raw_one)
                 two = Fraction(raw_two)
-                if "加法" in op:
-                    st.success(f"OUTPUT: {one} + {two} = {one + two}")
-                elif "减法" in op:
-                    st.success(f"OUTPUT: {one} - {two} = {one - two}")
-                elif "乘法" in op:
-                    st.success(f"OUTPUT: {one} × {two} = {one * two}")
-                elif "除法" in op:
-                    if two == 0:
-                        st.error("SYSTEM ERROR: Division by zero is restricted.")
-                    else:
-                        st.success(f"OUTPUT: {one} ÷ {two} = {one / two}")
+                st.code(f"Result: {one} ÷ {two} = {one / two}")
             except ValueError:
-                st.error("SYNTAX ERROR: Invalid numeric or fraction format.")
+                st.error("❌ 錯誤：請輸入有效的數字或分數！")
 
-
-# ==================== 模块 2：高级代数公式 ====================
-elif "高级代数公式" in menu_choice:
-    st.subheader("🧬 [NODE] ADVANCED FORMULA ENGINE")
-    sub_menu = st.selectbox("选择解析协议:", ["一元二次方程求解器", "完全平方公式展开", "勾股定理计算器"])
+# ==========================================
+# 5. 高級公式
+# ==========================================
+elif menu_choice == "5. 高級公式 (Advanced Formulas)":
+    sub_menu = st.radio("選擇公式類型：", ["一元二次方程求解器", "完全平方公式展開", "勾股定理（畢氏定理）"])
     
     if sub_menu == "一元二次方程求解器":
-        st.write("▶ Formula: ax² + bx + c = 0")
-        c1, c2, c3 = st.columns(3)
-        with c1: raw_a = st.text_input("Coefficient a:", key="qa")
-        with c2: raw_b = st.text_input("Coefficient b:", key="qb")
-        with c3: raw_c = st.text_input("Coefficient c:", key="qc")
-        
-        if st.button("SOLVE EQUATION"):
-            if raw_a and raw_b and raw_c:
-                try:
-                    a, b, c = float(raw_a), float(raw_b), float(raw_c)
-                    if a == 0:
-                        st.error("CRITICAL ERROR: 'a' cannot be zero.")
+        st.subheader("📐 Quadratic Equation Solver (ax² + bx + c = 0)")
+        raw_a = st.text_input("輸入係數 a：")
+        raw_b = st.text_input("輸入係數 b：")
+        raw_c = st.text_input("輸入係數 c：")
+        if st.button("求解方程"):
+            try:
+                input_one, input_two, input_three = float(raw_a), float(raw_b), float(raw_c)
+                if input_one == 0:
+                    st.error("❌ 錯誤：二次項係數 'a' 不能為 0。")
+                else:
+                    discriminant = input_two ** 2 - 4 * input_one * input_three
+                    if discriminant < 0:
+                        st.error("❌ 錯誤：此方程無實數根。")
                     else:
-                        discriminant = b**2 - 4*a*c
-                        if discriminant < 0:
-                            st.warning("NOTICE: Real roots do not exist in this matrix sector.")
-                        else:
-                            ans1 = (-b + (discriminant ** 0.5)) / (2 * a)
-                            ans2 = (-b - (discriminant ** 0.5)) / (2 * a)
-                            st.success(f"🎉 ROOT RESOLVED: x1 = {to_fraction_str(ans1)} | x2 = {to_fraction_str(ans2)}")
-                except ValueError:
-                    st.error("SYNTAX ERROR: Inputs must be numerical.")
-                    
-    elif sub_menu == "完全平方公式展开":
-        st.write("▶ Formula: (a + b)² = a² + 2ab + b²")
-        c1, col2 = st.columns(2)
-        with c1: raw_a = st.text_input("Variable a:", key="paa")
-        with col2: raw_b = st.text_input("Variable b:", key="pbb")
-        if st.button("EXPAND MATRICES"):
-            if raw_a and raw_b:
+                        ans_one = (-input_two + (discriminant ** 0.5)) / (2 * input_one)
+                        ans_two = (-input_two - (discriminant ** 0.5)) / (2 * input_one)
+                        st.success(f"🎉 求解成功！ roots: {ans_one} 或 {ans_two}")
+            except ValueError:
+                st.error("❌ 錯誤：請確保輸入的全部為數字！")
+
+    elif sub_menu == "完全平方公式展開":
+        st.subheader("展開式：(a+b)² = a² + 2ab + b²")
+        raw_a = st.text_input("輸入 a 的值：", key="pf1")
+        raw_b = st.text_input("輸入 b 的值：", key="pf2")
+        if st.button("執行公式展開"):
+            try:
+                a_f = Fraction(raw_a)
+                b_f = Fraction(raw_b)
+                ans = a_f**2 + 2*a_f*b_f + b_f**2
+                st.success(f"🎉 展開結果: {ans}")
+            except ValueError:
+                st.error("❌ 錯誤：請輸入整數、小數或分數。")
+
+    elif sub_menu == "勾股定理（畢氏定理）":
+        st.subheader(" Pythagoras Calculator")
+        choice = st.selectbox("你要計算什麼？", ["求斜邊 (Hypotenuse)", "求直角邊 (Leg)"])
+        if choice == "求斜邊 (Hypotenuse)":
+            raw_a = st.text_input("輸入直角邊 A 的長度：")
+            raw_b = st.text_input("輸入直角邊 B 的長度：")
+            if st.button("計算斜邊"):
                 try:
-                    fa, fb = Fraction(raw_a), Fraction(raw_b)
-                    ans = fa**2 + 2*fa*fb + fb**2
-                    st.success(f"🎉 EXPANDED RESULT: {ans}")
+                    a, b = Fraction(raw_a), Fraction(raw_b)
+                    ans = (a**2 + b**2)**0.5
+                    st.success(f"🎉 斜邊長度為：{ans}")
                 except ValueError:
-                    st.error("SYNTAX ERROR.")
-                    
-    elif sub_menu == "勾股定理计算器":
-        st.write("▶ Formula: a² + b² = c²")
-        mode = st.radio("Target Sector:", ["斜边 (Hypotenuse)", "直角边 (Leg)"])
-        if mode == "斜边 (Hypotenuse)":
-            c1, col2 = st.columns(2)
-            with c1: la = st.text_input("Leg A:", key="la")
-            with col2: lb = st.text_input("Leg B:", key="lb")
-            if st.button("CALCULATE HYPOTENUSE"):
-                try: st.success(f"🎉 RESULT: {(Fraction(la)**2 + Fraction(lb)**2)**0.5}")
-                except: st.error("ERROR.")
+                    st.error("❌ 輸入無效！")
         else:
-            c1, col2 = st.columns(2)
-            with c1: la = st.text_input("Known Leg:", key="l_known")
-            with col2: lc = st.text_input("Hypotenuse:", key="l_hyp")
-            if st.button("CALCULATE LEG"):
+            raw_a = st.text_input("輸入已知的直角邊長度：")
+            raw_c = st.text_input("輸入斜邊長度：")
+            if st.button("計算直角邊"):
                 try:
-                    a, c = Fraction(la), Fraction(lc)
-                    if a >= c: st.error("VIOLATION: Leg cannot exceed Hypotenuse.")
-                    else: st.success(f"🎉 RESULT: {(c**2 - a**2)**0.5}")
-                except: st.error("ERROR.")
+                    a, c = Fraction(raw_a), Fraction(raw_c)
+                    if a >= c:
+                        st.warning("⚠️ 錯誤：直角邊長度不能大於或等於斜邊！")
+                    else:
+                        ans = (c**2 - a**2)**0.5
+                        st.success(f"🎉 另一條直角邊長度為：{ans}")
+                except ValueError:
+                    st.error("❌ 輸入無效！")
 
-
-# ==================== 模块 3：几何周长公式 ====================
-elif "几何周长公式" in menu_choice:
-    st.subheader("📐 [NODE] PERIMETER CALCULATOR")
-    shape = st.selectbox("Select Shape:", ["长方形", "三角形", "圆形", "普通四边形"])
+# ==========================================
+# 6. 數學參考表格
+# ==========================================
+elif menu_choice == "6. 數學參考表格 (Reference Lists)":
+    st.subheader("📚 系統內置數學數據庫")
+    ref_table = st.selectbox("選擇要查看 interim 的表格：", ["九九乘法表", "1000以內的質數表", "平方數表 (1-31)", "立方數表 (1-10)", "常見勾股數"])
     
-    if shape == "长方形":
-        c1, col2 = st.columns(2)
-        with c1: w = st.text_input("Width:")
-        with col2: l = st.text_input("Length:")
-        if st.button("EXECUTE"):
-            try: st.success(f"PERIMETER: {(Fraction(w) + Fraction(l)) * 2}")
-            except: st.error("ERROR.")
+    if ref_table == "九九乘法表":
+        st.code("""
+1x1=1
+1x2=2 2x2=4
+1x3=3 2x3=6 3x3=9
+1x4=4 2x4=8 3x4=12 4x4=16
+1x5=5 2x5=10 3x5=15 4x5=20 5x5=25
+1x6=6 2x6=12 3x6=18 4x6=24 5x6=30 6x6=36
+1x7=7 2x7=14 3x7=21 4x7=28 5x7=35 6x7=42 7x7=49
+1x8=8 2x8=16 3x8=24 4x8=32 5x8=40 6x8=48 7x8=56 8x8=64
+1x9=9 2x9=18 3x9=27 4x9=36 5x9=45 6x9=54 7x9=63 8x9=72 9x9=81
+        """)
+    elif ref_table == "1000以內的質數表":
+        st.code("""
+2,    3,    5,    7,   11,   13,   17,   19,   23,   29, 
+31,   37,   41,   43,   47,   53,   59,   61,   67,   71, 
+73,   79,   83,   89,   97,  101,  103,  107,  109,  113, 
+127,  131,  137,  139,  149,  151,  157,  163,  167,  173, 
+179,  181,  191,  193,  197,  199,  211,  223,  227,  229, 
+233,  239,  241,  251,  257,  263,  269,  271,  277,  281, 
+283,  293,  307,  311,  313,  317,  331,  337,  347,  349, 
+353,  359,  367,  373,  379,  383,  389,  397,  401,  409, 
+419,  421,  431,  433,  439,  443,  449,  457,  461,  463, 
+467,  479,  487,  491,  499,  503,  509,  521,  523,  541, 
+547,  557,  563,  569,  571,  577,  587,  593,  599,  601, 
+607,  613,  617,  619,  631,  641,  643,  647,  653,  659, 
+661,  673,  677,  683,  691,  701,  709,  719,  727,  733, 
+739,  743,  751,  757,  761,  769,  773,  779,  787,  797, 
+809,  811,  821,  823,  827,  829,  839,  853,  857,  859, 
+863,  877,  881,  883,  887,  907,  911,  919,  929,  937, 
+941,  947,  953,  967,  971,  977,  983,  991,  997
+        """)
+    elif ref_table == "平方數表 (1-31)":
+        st.code("""
+1^2 = 1          2^2 = 4          3^2 = 9          4^2 = 16   
+5^2 = 25         6^2 = 36         7^2 = 49         8^2 = 64   
+9^2 = 81         10^2 = 100       11^2 = 121       12^2 = 144  
+13^2 = 169       14^2 = 196       15^2 = 225       16^2 = 256  
+17^2 = 289       18^2 = 324       19^2 = 361       20^2 = 400  
+21^2 = 441       22^2 = 484       23^2 = 529       24^2 = 576  
+25^2 = 625       26^2 = 676       27^2 = 729       28^2 = 784  
+29^2 = 841       30^2 = 900       31^2 = 961
+        """)
+    elif ref_table == "立方數表 (1-10)":
+        st.code("""
+┌────────────────────────────────────────────────────────────────────────┐
+│  ▶▶▶ [SYSTEM DATABASE] UNLOCKED: PERFECT CUBE NUMBERS (1-10) ◀◀◀       │
+├────────────────────────────────────────────────────────────────────────┤
+│    [001]  01³ = 1                   [006]  06³ = 216                   │
+│    [002]  02³ = 8                   [007]  07³ = 343                   │
+│    [003]  03³ = 27                  [008]  08³ = 512                   │
+│    [004]  04³ = 64                  [009]  09³ = 729                   │
+│    [005]  05³ = 125                 [010]  10³ = 1000                  │
+└────────────────────────────────────────────────────────────────────────┘
+        """)
+    elif ref_table == "常見勾股數":
+        st.code("""
+    Leg1  Leg2  Hypotenuse
+    3  —  4  —  5
+    5  —  12 —  13
+    8  —  15 —  17
+    7  —  24 —  25
+    9  —  40 —  41
+    11 —  60 —  61
+    12 —  35 —  37
+    20 —  21 —  29
+        """)
+
+# ==========================================
+# 7. 周長公式
+# ==========================================
+elif menu_choice == "7. 周長公式 (Perimeter Formulas)":
+    st.subheader("📐 Perimeter Calculation Mode")
+    shape = st.selectbox("選擇幾何圖形：", ["長方形", "三角形", "圓形周長(圓周長)", "四邊形"])
+    
+    if shape == "長方形":
+        c = st.text_input("輸入長方形寬度：", key="rec1")
+        d = st.text_input("輸入長方形長度：", key="rec2")
+        if st.button("計算長方形周長"):
+            st.success(f"Perimeter: {(Fraction(c)+Fraction(d))*2}")
             
     elif shape == "三角形":
-        c1, col2, c3 = st.columns(3)
-        with c1: s1 = st.text_input("Side 1:")
-        with col2: s2 = st.text_input("Side 2:")
-        with c3: s3 = st.text_input("Side 3:")
-        if st.button("EXECUTE"):
+        d = st.text_input("邊長 1：", key="tri1")
+        b_side = st.text_input("邊長 2：", key="tri2")
+        c = st.text_input("邊長 3：", key="tri3")
+        if st.button("計算三角形周長"):
             try:
-                d, b_side, c = Fraction(s1), Fraction(s2), Fraction(s3)
-                if d >= (b_side+c) or b_side >= (c+d) or c >= (d+b_side):
-                    st.error("VIOLATION: Invalid Triangle Dimensions.")
-                else: st.success(f"PERIMETER: {d + b_side + c}")
-            except: st.error("ERROR.")
+                d_f, b_f, c_f = Fraction(d), Fraction(b_side), Fraction(c)
+                if d_f >= (b_f+c_f) or b_f >= (c_f+d_f) or c_f >= (d_f+b_f):
+                    st.error("❌ 兩邊之和大於第三邊，這不是合法的三角形！")
+                else:
+                    st.success(f"Triangle Perimeter: {d_f + b_f + c_f}")
+            except ValueError: st.error("輸入錯誤")
             
-    elif shape == "圆形":
-        pi_mode = st.selectbox("Select π Precision:", ["Low (π = 3)", "Standard (π = 3.14)", "High (π = 3.1415926)"])
-        r = st.text_input("Radius:")
-        if st.button("EXECUTE"):
-            try:
-                r_f = float(r)
-                pi = 3 if "Low" in pi_mode else (3.14 if "Standard" in pi_mode else 3.1415926)
-                st.success(f"CIRCUMFERENCE: {pi * r_f * 2}")
-            except: st.error("ERROR.")
+    elif shape == "圓形周長(圓周長)":
+        pi_mode = st.radio("選擇 π 的精度：", ["低精度 (π = 3)", "標準模式 (π = 3.14)", "高精度 (π = 3.1415926)"])
+        r = st.text_input("輸入圓的半徑：")
+        if st.button("計算圓周長"):
+            r_val = float(r)
+            pi_val = 3.0 if "低精度" in pi_mode else (3.14 if "標準" in pi_mode else 3.1415926)
+            st.success(f"Circumference: {pi_val * r_val * 2}")
             
-    elif shape == "普通四边形":
-        c1, col2, c3, c4 = st.columns(4)
-        with c1: g1 = st.text_input("S1:")
-        with col2: g2 = st.text_input("S2:")
-        with c3: g3 = st.text_input("S3:")
-        with col4: g4 = st.text_input("S4:")
-        if st.button("EXECUTE"):
-            try: st.success(f"PERIMETER: {Fraction(g1)+Fraction(g2)+Fraction(g3)+Fraction(g4)}")
-            except: st.error("ERROR.")
-
-
-# ==================== 模块 4：数学参考表 ====================
-elif "数学参考表" in menu_choice:
-    st.subheader("📊 [DATABASE] ENCRYPTED MATRIX CONSTANTS")
-    table_type = st.radio("Select Sector:", ["九九乘法表", "1000以内质数表", "平方数表", "立方数表", "常用勾股数"])
-    
-    if table_type == "九九乘法表":
-        st.code("1x1=1\n1x2=2 2x2=4\n... [THE MATRIX MULTIPLICATION TABLE LOADED]")
-    elif table_type == "1000以内质数表":
-        st.code("2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53...")
-    elif table_type == "平方数表":
-        st.code("1^2=1, 2^2=4, ..., 31^2=961")
-    elif table_type == "立方数表":
-        st.code("01³ = 1, 02³ = 8, ..., 10³ = 1000")
-    elif table_type == "常用勾股数":
-        st.code("3—4—5 | 5—12—13 | 8—15—17 | 7—24—25 | 9—40—41")
-
-
-# ==================== 模块 5：十六进制凯撒加密 ====================
-elif "十六进制凯撒加密" in menu_choice:
-    st.subheader("🔒 [ENCRYPT] HEXADECIMAL CAESAR INJECTION")
-    user_input = st.text_input("Enter plain text to mask (Will be encrypted into hex stream):", type="password")
-    if st.button("INJECT CODES"):
-        if user_input:
-            list_one = []
-            for i in user_input:
-                list_one.append(hex(ord(i) + 3)[2:])
-            clean_output = " ".join(list_one)
-            st.success("🔒 CIPHER STREAM GENERATED SUCCESSFUL:")
-            st.code(clean_output, language="text")
-        else:
-            st.warning("Empty data stream detected.")
-
-
-# ==================== 模块 6：十六进制凯撒解密 ====================
-elif "十六进制解密" in menu_choice:
-    st.subheader("🔓 [DECRYPT] HEXADECIMAL CODES BREAK SYSTEM")
-    user_input = st.text_input("Enter hex cipher stream (space-separated):")
-    if st.button("BREAK MATRIX CIPHER"):
-        if user_input:
-            try:
-                new_list = user_input.split()
-                new_list_ = []
-                for i in new_list:
-                    new_list_.append(chr(int(i, 16) - 3))
-                clean_output = "".join(new_list_)
-                st.success("🔓 DECRYPTION COMPLETE. PLAIN TEXT RESTORED:")
-                st.code(clean_output, language="text")
-            except:
-                st.error("DECRYPTION FAILURE: Malformed hexadecimal stream format.")
-
-# --- 5. 网页页脚 (终极谢幕) ---
-st.write("====================================================================================================")
-st.caption("WARNING: Unauthorized access to this terminal will trigger agent alert protocols.")
-st.caption("© 2026 Harry's Cyber Workshop | System Ver: Matrix-V7.0-Stable")
+    elif shape == "四邊形":
+        g1 = st.text_input("邊長 1：", key
